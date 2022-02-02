@@ -1,12 +1,12 @@
 ---
 title: "Case_Study_1"
-author: "Michal Przybylowicz"
+author: "Michal"
 date: "8 01 2022"
 output: html_document
 ---
 
-# PROCESS
 
+# PROCESS
 # Install required packages
 ```{r}
 library(tidyverse)  #helps wrangle data
@@ -98,6 +98,7 @@ df_no_dups %>%
             "%" = length(ride_id) / nrow(df_no_dups) * 100)
 ```
 
+
 Plot the chart
 ```{r}
 myplot <- ggplot(df_no_dups, aes(member_casual,  fill=member_casual)) + 
@@ -121,6 +122,8 @@ df_no_dups %>%
               'Member x Casual Perc Difer' = members_p - casual_p)
 ```
 
+
+
 ```{r}
 df_no_dups %>%
   ggplot(aes(month, fill=member_casual)) +
@@ -141,6 +144,8 @@ df_no_dups %>%
               'casual_p' = (sum(member_casual == "casual") / length(ride_id)) * 100,
               'Member x Casual Perc Difer' = members_p - casual_p)
 ```
+
+
 ```{r}
 ggplot(df_no_dups, aes(end_day, fill=member_casual)) +
     geom_bar() +
@@ -160,12 +165,14 @@ df_no_dups %>%
           'member_casual_perc_difer' = members_p - casual_p)
 ```
 
+
 ```{r}
 df_no_dups %>%
     ggplot(aes(hour, fill=member_casual)) +
     labs(x="Hour of the day", title="Chart 04 - Distribution by hour of the day") +
     geom_bar()
 ```
+
 
 This chart can be expanded ween seen it divided by day of the week.
 ```{r}
@@ -188,6 +195,7 @@ df_no_dups %>%
           'member_casual_perc_difer' = members_p - casual_p)
 ```
 
+
 ```{r}
 ggplot(df_no_dups, aes(rideable_type, fill=member_casual)) +
     labs(x="Rideable type", title="Chart 06 - Distribution of types of bikes") +
@@ -200,10 +208,13 @@ ggplot(df_no_dups, aes(rideable_type, fill=member_casual)) +
 ```{r}
 summary(df_no_dups$ride_time_m)
 ```
+
+
 ```{r}
 ventiles = quantile(df_no_dups$ride_time_m, seq(0, 1, by=0.05))
 ventiles
 ```
+
 
 ```{r}
 cyclistic_without_outliners <- df_no_dups %>% 
@@ -212,6 +223,7 @@ cyclistic_without_outliners <- df_no_dups %>%
 
 print(paste("Removed", nrow(df_no_dups) - nrow(cyclistic_without_outliners), "rows as outliners" ))
 ```
+
 
 #ride_time_m multivariable exploration
 ```{r}
@@ -231,6 +243,7 @@ ggplot(cyclistic_without_outliners, aes(x=member_casual, y=ride_time_m, fill=mem
     geom_boxplot()
 ```
 
+
 #Ploting with weekday
 ```{r}
 ggplot(cyclistic_without_outliners, aes(x=end_day, y=ride_time_m, fill=member_casual)) +
@@ -240,6 +253,7 @@ ggplot(cyclistic_without_outliners, aes(x=end_day, y=ride_time_m, fill=member_ca
     coord_flip()
 ```
 
+
 #rideable_type
 ```{r}
 ggplot(cyclistic_without_outliners, aes(x=rideable_type, y=ride_time_m, fill=member_casual)) +
@@ -248,48 +262,3 @@ ggplot(cyclistic_without_outliners, aes(x=rideable_type, y=ride_time_m, fill=mem
     labs(x="Rideable type", y="Riding time", title="Chart 09 - Distribution of Riding time for rideeable type") +
     coord_flip()
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Show the head of the table
-```{r}
-head(df)
-```
-
-# Show the name of the columns
-```{r}
-colnames(df)
-```
-
-# Amount of unique values in columns
-```{r}
-sapply(df, n_distinct) #Show the number of unique values in columns
-```
-
-# Amount of emenets with unique value
-```{r}
-df %>% group_by(member_casual) %>%
-  summarize("amount"=n())
-```
-
-
-
-
-
-
-
-
