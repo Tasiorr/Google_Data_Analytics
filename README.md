@@ -104,7 +104,8 @@ To quick start, let's generate a summary of the dataset
 ```R
 summary(df_no_dups)
 ```
-#ZDJECIE
+![Summary](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/summary.PNG)
+
 One thing that immediately catches the attention is ride_time_m. This field has no more negative values but the biggest value is 55944,15 which is almost 39 days. This field will be explored further in the document.
 
 #### **Data distribution**
@@ -124,7 +125,7 @@ df_no_dups %>%
 |      casual	  | 2528664 |	45.19983 |		
 |      member	  | 3065746 |	54.80017 |	
 
-#ZDJECIE
+![Foto1](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto1.png)
 
 As we can see , members have a almost 55% of the whole amount of client and casual is equal to 45%.
 
@@ -140,11 +141,11 @@ df_no_dups %>%
               'Member x Casual Perc Difer' = members_p - casual_p)
 ```
 
-#ZDJECIE
+![Foto2](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto2.png)
 
 Some considerations can be taken by this chart:
-*      The months with the biggest count of data points are July and August.
-*      We have slightly more casuals the members in June, July and August.
+- The months with the biggest count of data points are July and August.
+- We have slightly more casuals the members in June, July and August.
 
 ##### **Weekday**
 How much of the data is distributed by weekday?
@@ -158,24 +159,24 @@ df_no_dups %>%
               'Member x Casual Perc Difer' = members_p - casual_p)
 ```
 
-#ZDJECIE
+![Foto3](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto3.png)
 
 Some considerations can be taken by this chart:
-*      The biggest volume of data is on the weekend.
-*      Saturday has the biggest data points.
-*      Members may have the biggest volume of data, besides on weekend
-*      Weekends have the biggest volume of casual, starting on friday, a ~15% increase.
+- The biggest volume of data is on the weekend.
+- Saturday has the biggest data points.
+- Members may have the biggest volume of data, besides on weekend
+- Weekends have the biggest volume of casual, starting on friday, a ~15% increase.
 
 ##### **Hour of the day**
 What is the hour distribution over the week
 
-#ZDJECIE
+![Foto4](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto4.png)
 
 From this chart, we can see:
-*      There's a bigger volume of bikers in the afternoon.
-*      We have more members during the morning, mainly in between 5am and 11am
-*      And more casuals between 11pm and 4am
-*      This chart can be expanded ween seen it divided by day of the week.
+- There's a bigger volume of bikers in the afternoon.
+- We have more members during the morning, mainly in between 5am and 11am
+- And more casuals between 11pm and 4am
+- This chart can be expanded ween seen it divided by day of the week.
 
 ```R
 df_no_dups %>%
@@ -188,10 +189,10 @@ df_no_dups %>%
 #ZDJECIE
 
 The two plots differs on some key ways:
-*      While the weekends have a smooth flow of data points, the midweek have a more steep flow of data.
-*      There's a big increase of data points in the midween between 6am to 8am. Then it fall a bit.
-*      Another big increase is from 5pm to 6pm.
-*      During the weekend we have a bigger flow of casuals between 11am to 6pm.
+- While the weekends have a smooth flow of data points, the midweek have a more steep flow of data.
+- There's a big increase of data points in the midween between 6am to 8am. Then it fall a bit.
+- Another big increase is from 5pm to 6pm.
+- During the weekend we have a bigger flow of casuals between 11am to 6pm.
 
 
 ##### **Rideable type**
@@ -208,9 +209,9 @@ df_no_dups %>%
 #ZDJECIE
 
 It's important to note that:
-*      Classic bikes have the biggest volume of rides, but this can be that the company may have more classic bikes.
-*      Members have a bigger preference for classic bikes, 61% more.
-*      Also for electric bikes, 53%.
+- Classic bikes have the biggest volume of rides, but this can be that the company may have more classic bikes.
+- Members have a bigger preference for classic bikes, 61% more.
+- Also for electric bikes, 53%.
 
 ##### **ride_time_m**
 ```R
@@ -221,14 +222,16 @@ summary(df_no_dups$ride_time_m)
 ventiles = quantile(df_no_dups$ride_time_m, seq(0, 1, by=0.05))
 ventiles
 ```
-          0%           5%          10%          15%          20%          25%          30%          35%          40%          45%          50% 
-1.666667e-02 2.800000e+00 3.983333e+00 4.950000e+00 5.850000e+00 6.750000e+00 7.666667e+00 8.633333e+00 9.666667e+00 1.076667e+01 1.200000e+01 
-         55%          60%          65%          70%          75%          80%          85%          90%          95%         100% 
-1.336667e+01 1.495000e+01 1.680000e+01 1.903333e+01 2.178333e+01 2.530000e+01 3.003333e+01 3.771667e+01 5.588333e+01 5.594415e+04 
+
+|          0% |          5%  |      10%     |    15%       |    20%       |   25%        |  30%         | 35%          | 40%          | 45%          | 50%          |
+|-------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|--------------|
+|1.666667e-02 | 2.800000e+00 | 3.983333e+00 | 4.950000e+00 | 5.850000e+00 | 6.750000e+00 | 7.666667e+00 | 8.633333e+00 | 9.666667e+00 | 1.076667e+01 | 1.200000e+01 | 
+|         55% |        60%   |       65%    |      70%     |     75%      |    80%       |   85%        | 90%          | 95%          | 100%         |              | 
+|1.336667e+01 | 1.495000e+01 | 1.680000e+01 | 1.903333e+01 | 2.178333e+01 | 2.530000e+01 | 3.003333e+01 | 3.771667e+01 | 5.588333e+01 | 5.594415e+04 |              |
 
 We can see that:
-*      The difference between 0% and 100% is 55944 minutes.
-*      The difference between 5% and 95% is 53 minutes. Because of that, in the analysis of this variable we are going to use a subset of the dataset without outliners. The subset will contain 95% of the dataset.
+- The difference between 0% and 100% is 55944 minutes.
+- The difference between 5% and 95% is 53 minutes. Because of that, in the analysis of this variable we are going to use a subset of the dataset without outliners. The subset will contain 95% of the dataset.
 
 ```R
 cyclistic_without_outliners <- df_no_dups %>% 
@@ -242,6 +245,54 @@ print(paste("Removed", nrow(df_no_dups) - nrow(cyclistic_without_outliners), "ro
 
 
 ### **Phase 5: Share - supporting visualizations and key findings**
+What we know about the dataset:
+- Members have the biggest proportion of the dataset, ~19% bigger thand casuals.
+- There's more data points at the last semester of 2020.
+- The month with the biggest count of data points was August with ~18% of the dataset.
+- In all months we have more members' rides than casual rides.
+- The difference of proporcion of member x casual is smaller in the last semester of 2020.
+- Temperature heavily influences the volume of rides in the month.
+- The biggest volume of data is on the the weekend.
+- There's a bigger volume of bikers in the afternoon.
+<br/>
+Why are there more members than casual? One plausible answer is that members have a bigger need for the bikes than casuals, as can be seen on how there are more members than casuals on cold months.
+
+Besides that, we have more bike rides on the weekends. Maybe because on those days the bikes were utilized for more recreational ways. This even more plausible when knowing that There's a bigger volume of bikers in the afternoon.
+<br/>
+Now for how members differs from casuals:
+- Members may have the biggest volume of data, besides on saturday. On this weekday, casuals take place as having the most data points.
+- Weekends have the biggest volume of casuals, starting on friday, a ~20% increase.
+- We have more members during the morning, mainly between 5am and 11am. And more casuals between 11pm and 4am.
+- There's a big increase of data points in the midweek between 6am to 8am for members. Then it fell a bit. Another big increase is from 5pm to 6pm.
+- During the weekend we have a bigger flow of casuals between 11am to 6pm.
+- Members have a bigger preference for classic bikes, 56% more.
+- Casuals have more riding time than members.
+- Riding time for members keeps unchanged during the midweek, increasing during weekends.
+- Casuals follow a more curve distribution, peaking on sundays and valleying on wednesday/thursday.
+<br/>
+What we can take from this information is that members have a more fixed use for bikes besides casuals. Their uses is for more routine activities, like:
+- Go to work.
+- Use it as an exercise.
+<br/>
+This can be proven we state that we have more members in between 6am to 8am and at 5pm to 6pm. Also, members may have set routes when using the bikes, as proven by riding time for members keeps unchanged during the midweek, increasing during weekends. The bikes is also heavily used for recreation on the weekends, when riding time increases and casuals take place.
+
+Members also have a bigger preference for classic bikes, so they can exercise when going to work.
+<br/>
+Concluding:
+- Members use the bikes for fixed activities, one of those is going to work.
+- Bikes are used for recreation on the weekends.
+
 
 ### **Phase 6: Act - top three recommendations based on analysis**
+Is there additional data you could use to expand on your findings?
+- Mobility data - find the most popular stations.
+- Climate data (temperature, weather).
+- Finding the most popular bike track and compare it with the trip duration by car. Probably the most people use bikes to get to work, thats why showing those information in marketing faze can encourage people to pick bike instead a car, assuming the trip duration will be similar. The main idea would be to show that traveling by car its not so much faster.
+<br/>
+Your top three recommendations based on your analysis:
+- Build a marketing campaign focusing on show how bikes help people to get to work, while maintaining the planet green and avoid traffic. The ads could be show on professional social networks.
+- Increase benefits for riding during cold months. Coupons and discounts could be handed out.
+- As the bikes are also used for recreations on the weekends, ads campaigns could also be made showing people using the bikes for exercise during the weeks. The ads could focus on how practical and consistent the bikes can be.
+
+
 
