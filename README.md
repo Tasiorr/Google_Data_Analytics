@@ -17,16 +17,20 @@ Moreno has set a clear goal: Design marketing strategies aimed at converting cas
 The project follows the six step data analysis process: **ask, prepare, process, analyze, share, and act**.
 
 ## **Working process**
+
+
 ### **Phase 1: Ask -  A clear statement of the business task**
 Three questions will guide the future marketing program:
 1. How do annual members and casual riders use Cyclistic bikes differently?
 2. why would casual riders buy Cyclistic annual memberships?
 3. How can Cyclistic use digital media to influence casual riders to become members?
 
+
 ### **Phase 2: Data Preparation - A description of all data sources used**
 The data that we will be using is Cyclistic’s historical trip data from last 12 months (January-2021 to December-2021). 
-The data can be found under this   [link](https://divvy-tripdata.s3.amazonaws.com/index.html).
+The data can be found under this [link](https://divvy-tripdata.s3.amazonaws.com/index.html).
 The dataset consists of 12 CSV files (each for a month) with 13 columns and more than 5 million rows.
+
 
 ### **Phase 3: Process - Documentation of any cleaning or manipulation of data**
 Before we start analyzing, it is necessary to make sure data is clean, free of error and in the right format.
@@ -99,6 +103,7 @@ df_no_dups %>%
   write.csv("case_study_1.csv")
 ```
 
+
 ### **Phase 4: Analyzing Data - a summary of analysis**
 To quick start, let's generate a summary of the dataset
 ```R
@@ -120,8 +125,8 @@ df_no_dups %>%
             "%" = length(ride_id) / nrow(df_no_dups) * 100)
 ```
 
-| member_casual |  count  |     %    |
-|---------------|---------|----------|
+| member_casual   |  count  |     %      |
+|-----------------|---------|------------|
 |      casual	  | 2528664 |	45.19983 |		
 |      member	  | 3065746 |	54.80017 |	
 
@@ -174,9 +179,7 @@ What is the hour distribution over the week
 
 From this chart, we can see:
 - There's a bigger volume of bikers in the afternoon.
-- We have more members during the morning, mainly in between 5am and 11am
-- And more casuals between 11pm and 4am
-- This chart can be expanded ween seen it divided by day of the week.
+- We have more members between 5am and 23am. More casuals between 23pm and 5am.
 
 ```R
 df_no_dups %>%
@@ -186,7 +189,7 @@ df_no_dups %>%
     facet_wrap(~ end_day)
 ```
 
-#ZDJECIE
+![Foto5](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto5.png)
 
 The two plots differs on some key ways:
 - While the weekends have a smooth flow of data points, the midweek have a more steep flow of data.
@@ -206,7 +209,7 @@ df_no_dups %>%
           'member_casual_perc_difer' = members_p - casual_p)
 ```
 
-#ZDJECIE
+![Foto6](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto6.png)
 
 It's important to note that:
 - Classic bikes have the biggest volume of rides, but this can be that the company may have more classic bikes.
@@ -242,16 +245,56 @@ print(paste("Removed", nrow(df_no_dups) - nrow(cyclistic_without_outliners), "ro
 ```
 [1] "Removed 561419 rows as outliners"
 
+#### **ride_time_m multivariable exploration**
+```R
+cyclistic_without_outliners %>% 
+    group_by(member_casual) %>% 
+    summarise(mean = mean(ride_time_m),
+              'first_quarter' = as.numeric(quantile(ride_time_m, .25)),
+              'median' = median(ride_time_m),
+              'third_quarter' = as.numeric(quantile(ride_time_m, .75)),
+              'IR' = third_quarter - first_quarter)
+```
+![Foto7](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto7.png)
+
+It's important to note that:
+- Casual have more riding time thant members.
+- Mean and IQR is also bigger for casual.
+
+##### **Ploting with weekday**
+```R
+ggplot(cyclistic_without_outliners, aes(x=end_day, y=ride_time_m, fill=member_casual)) +
+    geom_boxplot() +
+    facet_wrap(~ member_casual) +
+    labs(x="Weekday", y="Riding time", title="Chart 08 - Distribution of Riding time for day of the week") +
+    coord_flip()
+```
+
+![Foto8](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto8.png)
+
+- Riding time for members keeps unchanged during the midweek, increasing during weekends
+- Casuals follow a more curve distribution, peaking on sundays and valleying on wednesday/thursday.
+
+##### **rideable_type**
+```R
+ggplot(cyclistic_without_outliners, aes(x=rideable_type, y=ride_time_m, fill=member_casual)) +
+    geom_boxplot() +
+    facet_wrap(~ member_casual) +
+    labs(x="Rideable type", y="Riding time", title="Chart 09 - Distribution of Riding time for rideeable type") +
+    coord_flip()
+```
+
+![Foto9](https://github.com/Tasiorr/Google_Data_Analytics/blob/main/Images/Foto9.png)
+
+- Electric bikes have less riding time than other bikes, for both members and casuals.
+- Docked bikes have more riding time. And for docked bikes, members have more riding time than casuals.
 
 
 ### **Phase 5: Share - supporting visualizations and key findings**
 What we know about the dataset:
-- Members have the biggest proportion of the dataset, ~19% bigger thand casuals.
-- There's more data points at the last semester of 2020.
-- The month with the biggest count of data points was August with ~18% of the dataset.
+- Members have the biggest proportion of the dataset, ~10% bigger than casuals.
+- The month with the biggest count of data points was July.
 - In all months we have more members' rides than casual rides.
-- The difference of proporcion of member x casual is smaller in the last semester of 2020.
-- Temperature heavily influences the volume of rides in the month.
 - The biggest volume of data is on the the weekend.
 - There's a bigger volume of bikers in the afternoon.
 <br/>
@@ -260,11 +303,9 @@ Why are there more members than casual? One plausible answer is that members hav
 Besides that, we have more bike rides on the weekends. Maybe because on those days the bikes were utilized for more recreational ways. This even more plausible when knowing that There's a bigger volume of bikers in the afternoon.
 <br/>
 Now for how members differs from casuals:
-- Members may have the biggest volume of data, besides on saturday. On this weekday, casuals take place as having the most data points.
-- Weekends have the biggest volume of casuals, starting on friday, a ~20% increase.
-- We have more members during the morning, mainly between 5am and 11am. And more casuals between 11pm and 4am.
-- There's a big increase of data points in the midweek between 6am to 8am for members. Then it fell a bit. Another big increase is from 5pm to 6pm.
-- During the weekend we have a bigger flow of casuals between 11am to 6pm.
+- Members may have the biggest volume of data, besides on weekend
+- Weekends have the biggest volume of casuals, starting on friday, a ~15% increase.
+- We have more members between 5am and 23am. More casuals between 23pm and 5am.
 - Members have a bigger preference for classic bikes, 56% more.
 - Casuals have more riding time than members.
 - Riding time for members keeps unchanged during the midweek, increasing during weekends.
@@ -274,8 +315,6 @@ What we can take from this information is that members have a more fixed use for
 - Go to work.
 - Use it as an exercise.
 <br/>
-This can be proven we state that we have more members in between 6am to 8am and at 5pm to 6pm. Also, members may have set routes when using the bikes, as proven by riding time for members keeps unchanged during the midweek, increasing during weekends. The bikes is also heavily used for recreation on the weekends, when riding time increases and casuals take place.
-
 Members also have a bigger preference for classic bikes, so they can exercise when going to work.
 <br/>
 Concluding:
@@ -293,6 +332,3 @@ Your top three recommendations based on your analysis:
 - Build a marketing campaign focusing on show how bikes help people to get to work, while maintaining the planet green and avoid traffic. The ads could be show on professional social networks.
 - Increase benefits for riding during cold months. Coupons and discounts could be handed out.
 - As the bikes are also used for recreations on the weekends, ads campaigns could also be made showing people using the bikes for exercise during the weeks. The ads could focus on how practical and consistent the bikes can be.
-
-
-
